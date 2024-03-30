@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button, Stack } from "@mui/material";
-import { BrowserRouter, Link } from "react-router-dom";
+// import { BrowserRouter, Link } from "react-router-dom";
 import { LoginForm } from "../LoginForm/LoginForm";
+import { SignUpForm } from "../SignUp/SignUp";
 
-export const HomePage = () => {
+export const HomePage: React.FC = () => {
+  const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showSignUpForm, setShowSignUpForm] = useState(false);
+
   const handleLogin = () => {
-    <LoginForm />;
-    console.log(<LoginForm />);
+    setShowLoginForm(true);
   };
+
   const handleSignUp = () => {
-    console.log("hello you 2");
+    setShowSignUpForm(true);
   };
   return (
     <section id="HomePage">
@@ -19,22 +23,20 @@ export const HomePage = () => {
         alignItems="center"
         height="100vh"
       >
-        <Stack spacing={1} direction="row">
-          <BrowserRouter>
-            <Button
-              component={Link}
-              to={"/loginForm/LoginForm"}
-              variant="contained"
-              onClick={handleLogin}
-              href={"/"}
-            >
+        {showLoginForm ? (
+          <LoginForm />
+        ) : showSignUpForm ? (
+          <SignUpForm />
+        ) : (
+          <Stack spacing={1} direction="row">
+            <Button variant="contained" onClick={handleLogin}>
               Connexion
             </Button>
             <Button variant="contained" onClick={handleSignUp}>
               Inscription
             </Button>
-          </BrowserRouter>
-        </Stack>
+          </Stack>
+        )}
       </Box>
     </section>
   );
